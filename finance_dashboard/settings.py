@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular', 
     'rest_framework_simplejwt'
-
+    'accounts',
+    'records',
+    'dashboard',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'finance_dashboard.urls'
 
@@ -78,6 +82,8 @@ WSGI_APPLICATION = 'finance_dashboard.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
+AUTH_USER_MODEL = 'accounts.User'
 
 DATABASES = {
     'default': {
