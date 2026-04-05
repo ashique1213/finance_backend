@@ -104,13 +104,6 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
-# Spectacular settings (API docs)
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'Finance Dashboard API',
-    'DESCRIPTION': 'Backend for Finance Dashboard with Role-based Access Control',
-    'VERSION': '1.0.0',
-}
-
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 
