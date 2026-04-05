@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -48,6 +48,17 @@ INSTALLED_APPS = [
     'dashboard',
     'core',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,6 +95,21 @@ WSGI_APPLICATION = 'finance_dashboard.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
+# Simple JWT settings
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+
+# Spectacular settings (API docs)
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Finance Dashboard API',
+    'DESCRIPTION': 'Backend for Finance Dashboard with Role-based Access Control',
+    'VERSION': '1.0.0',
+}
 
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
