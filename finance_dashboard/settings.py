@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'drf_spectacular', 
-    'rest_framework_simplejwt'
+    'drf_spectacular',
+    'rest_framework_simplejwt',
     'accounts',
     'records',
     'dashboard',
@@ -85,18 +85,24 @@ WSGI_APPLICATION = 'finance_dashboard.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.User'
 
+from dotenv import load_dotenv
+from urllib.parse import urlparse, parse_qsl
+
+load_dotenv()
+
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'OPTIONS': {'sslmode': 'require'},
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
+        'PASSWORD': tmpPostgres.password,
+        'HOST': tmpPostgres.hostname,
+        'PORT': tmpPostgres.port,
+        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
