@@ -1,11 +1,7 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import FinancialRecordViewSet, CategoryViewSet
-
-router = DefaultRouter()
-router.register(r'categories', CategoryViewSet)
-router.register(r'records', FinancialRecordViewSet)
+from django.urls import path
+from .views import FinancialRecordListCreateView, FinancialRecordDetailView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', FinancialRecordListCreateView.as_view(), name='record-list-create'),
+    path('<int:pk>/', FinancialRecordDetailView.as_view(), name='record-detail'),
 ]
