@@ -143,8 +143,8 @@ Server will run at: `http://127.0.0.1:8000`
 ```json
 POST {{base_url}}/api/auth/register/
 {
-  "email": "admin@example.com",
-  "username": "admin",
+  "email": "admin@gmail.com",
+  "username": "admin@123",
   "password": "admin123",
   "role": "admin"
 }
